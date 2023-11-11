@@ -3,8 +3,11 @@
 import { smoothieProps } from '@/app/types/types'
 import supabase from '@/app/utils/utils'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const SmoothieCard = ({ title,id }: smoothieProps ) => {
+
+  const { refresh } = useRouter()
 
   const handleDelete = async () => {
     await supabase
@@ -12,6 +15,7 @@ const SmoothieCard = ({ title,id }: smoothieProps ) => {
     .delete()
     .eq("id", id)
     .single()
+    refresh()
   }
 
   return (

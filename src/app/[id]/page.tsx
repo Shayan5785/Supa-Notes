@@ -1,9 +1,12 @@
 'use client'
-import React, { FormEventHandler, useEffect, useState } from 'react'
+import React, { FormEventHandler, useEffect, useState, useTransition } from 'react'
 import supabase from '../utils/utils';
+import { useRouter } from 'next/navigation';
 
 const Page = ({ params }: { params: { id: number } }) => {
+  const [isPending, startTransition] = useTransition();
   const [title, setTitle] = useState('')
+  const router = useRouter()
 
   useEffect(() => {
     async function getDocs() {
@@ -14,11 +17,17 @@ const Page = ({ params }: { params: { id: number } }) => {
     getDocs()
   }, [params])
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async () => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault()
    await supabase
       .from('notes')
       .update({ "title":  title})
       .eq('id', +params.id )
+
+      startTransition(()=>{
+        router.refresh()
+        router.push('/')
+      })
   }
 
   return (
@@ -31,7 +40,7 @@ const Page = ({ params }: { params: { id: number } }) => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <button>Create Smoothie Recipe</button>
+        <button> { isPending ? 'loading...' : "Update Notes"} </button>
       </form>
     </div>
   )

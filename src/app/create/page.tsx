@@ -1,10 +1,11 @@
 "use client"
 
-import { FormEventHandler, useState } from "react"
+import { FormEventHandler, useState, useTransition } from "react"
 import { useRouter } from 'next/navigation'
 import supabase from "../utils/utils"
 
 const Create = () => {
+  const [isPending, startTransition] = useTransition();
   const router = useRouter()
 
   const [title, setTitle] = useState('')
@@ -17,7 +18,10 @@ const Create = () => {
       return
     }
     await supabase.from('notes').insert([{ title }])
-    router.push('/')
+    startTransition(() => {
+      router.refresh()
+      router.push('/')
+    })
   }
 
   return (
@@ -30,7 +34,8 @@ const Create = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <button>Create Smoothie Recipe</button>
+        <button> {isPending ? 'loading...' : "Create Notes"} </button>
+
 
         {formError && <p className="error">{formError}</p>}
       </form>

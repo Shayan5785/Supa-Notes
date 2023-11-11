@@ -1,26 +1,21 @@
-"use client"
-
+import NotesCard from "@/components/SmoothieCard";
 import supabase from "./utils/utils"
-import { useEffect, useState } from "react";
-import SmoothieCardContainer from "@/components/SmoothieCardContainer";
 
-export default function Home() {
-  const [notes, setNotes]: any = useState()
-  const [error, setError]: any = useState()
+export const dynamic = 'force-dynamic'
 
-  useEffect(() => {
-    const fetchRes = async () => {
-      const { data: notes, error } = await supabase.from("notes").select();
-      setNotes(notes)
-      setError(error)
-    }
-    fetchRes()
-  }, [notes])
-
+export default async function Home() {
+  const { data: notes, error } = await supabase.from("notes").select();
   return (
     <main className="page home">
       {error && <p>Unable to fetch data from db.</p>}
-      {notes && <SmoothieCardContainer notes={notes} />}
+      {notes &&
+        <div className="smoothies">
+          <div className="smoothie-grid">
+            {notes.map(note => (
+              <NotesCard key={note.id} title={note.title} id={note.id} />
+            ))}
+          </div>
+        </div>}
     </main>
   )
 }
