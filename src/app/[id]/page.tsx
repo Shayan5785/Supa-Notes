@@ -19,15 +19,15 @@ const Page = ({ params }: { params: { id: number } }) => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
-   await supabase
+    await supabase
       .from('notes')
-      .update({ "title":  title})
-      .eq('id', +params.id )
+      .update({ "title": title })
+      .eq('id', +params.id)
 
-      startTransition(()=>{
-        router.refresh()
-        router.push('/')
-      })
+    startTransition(() => {
+      router.refresh()
+      router.push('/')
+    })
   }
 
   return (
@@ -40,7 +40,7 @@ const Page = ({ params }: { params: { id: number } }) => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <button> { isPending ? 'loading...' : "Update Notes"} </button>
+        <button> {isPending ? 'loading...' : "Update Notes"} </button>
       </form>
     </div>
   )

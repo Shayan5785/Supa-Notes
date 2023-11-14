@@ -11,6 +11,7 @@ const Create = () => {
   const [title, setTitle] = useState('')
   const [formError, setFormError] = useState<string | null>(null)
 
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     if (!title) {

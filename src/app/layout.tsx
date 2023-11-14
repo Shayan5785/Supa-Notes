@@ -26,6 +26,8 @@ export default function RootLayout({
           <h1>Supa Notes</h1>
           <Link href="/">Home</Link>
           <Link href="/create">Create New Note</Link>
+          <Link href="/signup">Sign up</Link>
+          <Link href="/login">Log in</Link>
         </nav>
         {children}
       </body>
