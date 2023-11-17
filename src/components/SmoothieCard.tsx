@@ -5,7 +5,7 @@ import supabase from '@/app/utils/utils'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-const SmoothieCard = ({ title, id }: smoothieProps) => {
+const SmoothieCard = ({ title, id, user }: smoothieProps) => {
 
   const { refresh } = useRouter()
 
@@ -20,6 +20,7 @@ const SmoothieCard = ({ title, id }: smoothieProps) => {
 
   return (
     <div className="smoothie-card">
+      <h1>{user}</h1>
       <h3>{title}</h3>
       <div className="flex justify-center items-center gap-10">
         <button className='bg-red-500 text-white p-2 rounded-md' onClick={handleDelete}>Delete</button>

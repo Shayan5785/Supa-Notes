@@ -9,7 +9,7 @@ import { AuthError } from '@supabase/supabase-js'
 const page = () => {
     // Hooks for Component optimization 
     const [isPending, startTransition] = useTransition()
-    const { push } = useRouter()
+    const { push,refresh } = useRouter()
 
     // Nessesary states
     const [email, setEmail] = useState("")
@@ -30,7 +30,10 @@ const page = () => {
         signInWithEmail()
             .then(data => console.log(data))
             .catch(error => setFormError(error))
-        startTransition(() => push('/'))
+        startTransition(() => {
+            refresh()
+            push('/')
+        })
     }
 
     return (

@@ -27,6 +27,7 @@ const Create = () => {
 
   return (
     <div className="page create">
+      <h1 className='text-3xl text-center mb-8'>Build your thought here</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title:</label>
         <input

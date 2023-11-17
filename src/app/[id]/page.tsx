@@ -32,6 +32,7 @@ const Page = ({ params }: { params: { id: number } }) => {
 
   return (
     <div className="page update">
+      <h1 className='text-3xl text-center mb-8'>Update your thought</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title:</label>
         <input
