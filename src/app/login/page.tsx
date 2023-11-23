@@ -9,31 +9,35 @@ import { AuthError } from '@supabase/supabase-js'
 const page = () => {
     // Hooks for Component optimization 
     const [isPending, startTransition] = useTransition()
-    const { push,refresh } = useRouter()
+    const router = useRouter()
 
     // Nessesary states
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [formError, setFormError] = useState<AuthError>()
+    const [formError, setFormError] = useState<string|null>()
 
 
     // handling signing up 
     async function signInWithEmail() {
-        const { data, error } = 
-        await supabase.auth.signInWithPassword({email,password})
-        return {data, error}
+        const { data, error } =
+            await supabase.auth.signInWithPassword({ email, password })
+        return { data, error }
     }
 
     // handling form submission
     const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
         signInWithEmail()
-            .then(data => console.log(data))
-            .catch(error => setFormError(error))
-        startTransition(() => {
-            refresh()
-            push('/')
-        })
+            .then(({data,error}) => {
+                if (data.user) {
+                    startTransition(() => {
+                        router.refresh()
+                        router.push('/')
+                    })
+                } else {
+                    setFormError(error?.message)
+                }
+            })
     }
 
     return (
@@ -55,10 +59,10 @@ const page = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button> {isPending ? 'loading...' : "Create Notes"} </button>
-                
+                <button className=''> {isPending ? 'loading...' : "Log in"} </button>
+
                 {/* Populating Errors if there's any */}
-                {formError && <p className="error">{formError.message}</p>}  
+                {formError && <p className="error pt-3 text-red-500">{formError}</p>}
             </form>
         </div>
     )

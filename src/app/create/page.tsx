@@ -2,7 +2,7 @@
 
 import { FormEventHandler, useState, useTransition } from "react"
 import { useRouter } from 'next/navigation'
-import supabase from "../utils/utils"
+import supabase, { AddNote } from "../utils/utils"
 
 const Create = () => {
   const [isPending, startTransition] = useTransition();
@@ -18,7 +18,7 @@ const Create = () => {
       setFormError('Please fill in all the fields correctly.')
       return
     }
-    await supabase.from('notes').insert([{ title }])
+    AddNote({title})
     startTransition(() => {
       router.refresh()
       router.push('/')

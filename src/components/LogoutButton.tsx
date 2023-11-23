@@ -15,25 +15,25 @@ const LogoutButton = () => {
 
     const handleSubmit: MouseEventHandler<HTMLButtonElement> = () => {
         handleLogOut()
-        .then(() => {
-            refresh()
-            console.log('Logged out')
-        })
-        .catch( error => seterror(error))
+            .then(() => {
+                refresh()
+                console.log('Logged out')
+            })
+            .catch(error => seterror(error))
     }
 
-  return (
-    <div>
-        <button 
-        className='bg-red-500 text-white p-2 rounded-md'
-        onClick={handleSubmit}
-        >
-            Logout
-        </button>
-        <p>{error}</p>
-    </div>
+    return (
+        <div>
+            <button
+                className='text-white '
+                onClick={handleSubmit}
+            >
+                Logout
+            </button>
+            <p>{error}</p>
+        </div>
 
-  )
+    )
 }
 
 export default LogoutButton

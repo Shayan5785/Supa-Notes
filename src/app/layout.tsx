@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
-import Link from 'next/link'
-import LogoutButton from "@/components/LogoutButton";
+import Header from '@/components/Header';
 
 const poppins = Poppins({
   weight: ["300", "400", '500', "600", "700", "800"],
@@ -23,14 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <nav>
-          <h1>Supa Notes</h1>
-          <Link href="/">Home</Link>
-          <Link href="/create">Create New Note</Link>
-          <Link href="/signup">Sign up</Link>
-          <Link href="/login">Log in</Link>
-          <LogoutButton />
-        </nav>
+        <Header />
         {children}
       </body>
     </html>

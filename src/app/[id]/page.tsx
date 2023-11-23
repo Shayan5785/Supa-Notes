@@ -41,7 +41,7 @@ const Page = ({ params }: { params: { id: number } }) => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <button> {isPending ? 'loading...' : "Update Notes"} </button>
+        <button> {isPending ? 'updating...' : "Update Notes"} </button>
       </form>
     </div>
   )

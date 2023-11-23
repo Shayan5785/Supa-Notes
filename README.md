@@ -1,3 +1,8 @@
+
+
+#12bca2
+#EAB308
+
 EX8LtqUgPU067h82
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
