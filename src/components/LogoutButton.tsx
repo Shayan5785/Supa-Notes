@@ -23,7 +23,7 @@ const LogoutButton = () => {
     }
 
     return (
-        <div>
+        <div className='inline'>
             <button
                 className='text-white '
                 onClick={handleSubmit}

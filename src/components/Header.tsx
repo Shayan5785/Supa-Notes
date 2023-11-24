@@ -7,7 +7,6 @@ import { cookies } from 'next/headers'
 const Header = async () => {
     const supabase = createServerComponentClient({ cookies })
     const { data: { user } } = await supabase.auth.getUser()
-    console.log(user)
 
     return (
         <nav>

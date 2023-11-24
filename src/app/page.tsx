@@ -1,27 +1,24 @@
-import NotesCard from "@/components/SmoothieCard";
+import LoggedinHomePage from "@/components/LoggedinHomePage";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
+// stop caching automatically
 export const dynamic = 'force-dynamic'
-const supabase = createServerComponentClient({ cookies });
 
 export default async function Home() {
+  const supabase = createServerComponentClient({ cookies });
+  const { data: { user } } = await supabase.auth.getUser()      // getting logged user data
+  const { data: notes, error } = await supabase.from("notes").select();     // getting notes
 
-  const { data: notes, error } = await supabase.from("notes").select();
-  console.log(notes)
   return (
     <main className="page home">
+      {/* if any error occurs while getting the notes */}
       {error && <p>Unable to fetch data from db.</p>}
-      {notes != null ?
-        <div className="smoothies">
-          <div className="smoothie-grid">
-            {notes?.map(note => (
-              <NotesCard key={note.id} title={note.title} id={note.id} user={note.user_id} />
-            ))}
-          </div>
-        </div> :
+
+      {/* render the page on the basis of user authentication */}
+      {user ? <LoggedinHomePage notes={notes} user={user} /> :
         <div>
           <div className="flex justify-center gap-2 items-center mb-3">
             <figure>
