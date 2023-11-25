@@ -4,7 +4,7 @@ import NotesCard from "@/components/SmoothieCard";
 const LoggedinHomePage = ({ notes, user }: any) => {
     return (
         <div>
-            <p>{user.user_metadata.userName}</p>
+            <p>Welcome {user.user_metadata.userName} !</p>
             {/* render the notes if there's any else render the 'Create your first note' */}
             {notes && notes.length > 0 ?
                 <div className="smoothies">

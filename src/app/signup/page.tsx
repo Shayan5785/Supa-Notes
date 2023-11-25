@@ -4,6 +4,7 @@ import React, { FormEventHandler, useState, useTransition } from 'react'
 import supabase from '../utils/utils'
 import { useRouter } from 'next/navigation'
 import { AuthError } from '@supabase/supabase-js'
+import Spinner from '@/svg/spinner'
 
 
 const page = () => {
@@ -23,15 +24,15 @@ const page = () => {
                 emailRedirectTo: 'http://localhost:3000/'
             }
         })
-        return {data,error}
+        return { data, error }
     }
-    
-    const handleSubmit:FormEventHandler<HTMLFormElement> = (e) =>  {
+
+    const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
         signUpNewUser()
-         .then( data => console.log(data))
-         .catch( error => setFormError(error) )
-        startTransition( () => push('/'))
+            .then(data => console.log(data))
+            .catch(error => setFormError(error))
+        startTransition(() => push('/'))
     }
 
     return (
@@ -53,7 +54,7 @@ const page = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button> {isPending ? 'loading...' : "Create Notes"} </button>
+                {isPending ? <Spinner /> : <button>Create new account</button>}
                 {formError && <p className="error">{formError.message}</p>}
             </form>
         </div>

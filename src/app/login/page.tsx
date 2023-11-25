@@ -4,6 +4,7 @@ import React, { FormEventHandler, useState, useTransition } from 'react'
 import supabase from '../utils/utils'
 import { useRouter } from 'next/navigation'
 import { AuthError } from '@supabase/supabase-js'
+import Spinner from '@/svg/spinner';
 
 
 const page = () => {
@@ -59,7 +60,8 @@ const page = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className=''> {isPending ? 'loading...' : "Log in"} </button>
+                
+                {isPending ? <Spinner className='h-screen w-screen absolute z-30 bg-black opacity-70 top-0 left-0 flex justify-center items-center'/> : <button>Log in</button>}
 
                 {/* Populating Errors if there's any */}
                 {formError && <p className="error pt-3 text-red-500">{formError}</p>}

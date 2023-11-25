@@ -16,7 +16,6 @@ export default async function Home() {
     <main className="page home">
       {/* if any error occurs while getting the notes */}
       {error && <p>Unable to fetch data from db.</p>}
-
       {/* render the page on the basis of user authentication */}
       {user ? <LoggedinHomePage notes={notes} user={user} /> :
         <div>

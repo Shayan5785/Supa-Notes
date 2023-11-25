@@ -21,9 +21,8 @@ const SmoothieCard = ({ title, id, user }: smoothieProps) => {
 
   return (
     <div className="smoothie-card">
-      <h1>{user}</h1>
       <h3>{title}</h3>
-      <div className="flex justify-center items-center gap-10">
+      <div className="mt-4 flex justify-center items-center gap-10">
         <button className='bg-red-500 text-white p-2 rounded-md' onClick={handleDelete}>
           {isPending ? 'deleting...' : "Delete"}
         </button>
